@@ -60,25 +60,30 @@ RUN git clone https://github.com/FiloSottile/mkcert && \
 ENV PATH=/mkcert:$PATH
 RUN mkcert -install
 
-# 設定 SSL 憑證與 PHP-fpm
-WORKDIR /var/www
-#COPY ./conf/default /etc/nginx/site-av
-RUN mkcert localhost 127.0.0.1
-
-# 安裝 laravel
-WORKDIR /var/www/html
-#RUN if ! [ -d "/var/www/html/${LaravelName}" ]; then;fi
-RUN if [[ "A" == "B" ]]; then echo A; else echo B; fi
-
 ## 安裝 laravel
-#RUN if ! [ -d "/var/www/html/${LaravelName}" ]; then;\
-#		if [[ "${LaravelFrom}" == "" ]]; then;\
+#WORKDIR /var/www/html
+#RUN if [ ! -d "/var/www/html/${LaravelName}" ]; then\
+#		if [-z "${LaravelFrom}"]; then\
 #			composer global require laravel/installer && \
 #			laravel new ${LaravelName};\
-#		else;\
+#		fi\
+#	fi
+
+## 安裝 laravel
+#RUN if [ ! -d "/var/www/html/${LaravelName}" ]; then\
+#		if [[ "${LaravelFrom}" == "" ]]; then\
+#			composer global require laravel/installer && \
+#			laravel new ${LaravelName};\
+#		else\
 #			git clone ${LaravelFrom};\
-#		fi;\
-#	fi;
+#		fi\
+#	fi
+
+# 設定 SSL 憑證與 PHP-fpm
+WORKDIR /var/www
+COPY ./conf/default /etc/nginx/sites-available/default
+RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/default
+RUN mkcert localhost 127.0.0.1
 
 ## 建立 supervisor 設定檔
 #RUN echo -e '\
@@ -101,10 +106,9 @@ RUN if [[ "A" == "B" ]]; then echo A; else echo B; fi
 #
 #RUN supervisorctl update
 
-VOLUME /var/lib/mysql
-VOLUME /var/www/html
+VOLUME ["/var/www/html", "/var/lib/mysql"]
 EXPOSE 80 443
 STOPSIGNAL SIGTERM
 #CMD ["sh", "-c", "nginx -g daemon off; && mysql start"]
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
 #CMD ["supervisorctl", "start", "all"]
