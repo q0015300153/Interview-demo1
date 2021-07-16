@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-tw" dir="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<meta name="msapplication-TileColor" content="#ff685c">
+		<meta name="theme-color" content="#32cafe">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+		<title>施工人員進出場管制系統</title>
+		<link rel="stylesheet" href="assets/fonts/fonts/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700" rel="stylesheet">
+		<link href="assets/css/dashboard.css" rel="stylesheet" />
+		<link href="assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+		<link href="assets/plugins/horizontal-menu/dropdown-effects/fade-down.css" rel="stylesheet">
+		<link href="assets/plugins/horizontal-menu/webslidemenu.css" rel="stylesheet">
+		<link href="assets/plugins/iconfonts/plugin.css" rel="stylesheet" />
+	</head>
+	<body class="app sidebar-mini rtl">
+		<div id="global-loader" ></div>
+		<div class="page">
+			<div class="page-main">
+				<!--抬頭-->
+				<div class="app-header header py-1 d-flex">
+					<div class="container">
+						<div class="d-flex">
+							<a class="header-brand" href="index.html">
+								施工人員進出場管制系統
+							</a>
+							<a id="horizontal-navtoggle" class="animated-arrow"><span></span></a>
+							<div class="d-flex order-lg-2 ml-auto">
+							    <form class="form-inline mr-auto d-none d-md-flex">
+									<div class="search-element">
+										<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+										<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+									</div>
+								</form>
+								<div class="dropdown d-none d-md-flex">
+									<a class="nav-link icon full-screen-link">
+										<i class="mdi mdi-arrow-expand-all" id="fullscreen-button"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--選單-->
+				<div class="horizontal-main clearfix">
+					<div class="horizontal-mainwrapper container clearfix">
+						<nav class="horizontalMenu clearfix">
+							<ul class="horizontalMenu-list">
+								<li aria-haspopup="true">
+									<a href="index.html" class="active">
+										<i class="fa fa-desktop"></i>首頁
+									</a>
+								</li>
+								<li aria-haspopup="true">
+									<a href="vcc.html">
+										<i class="fa fa-flash"></i>VCC
+									</a>
+								</li>
+								<li aria-haspopup="true">
+									<a href="search.html">
+										<i class="fa fa-search"></i>搜尋
+									</a>
+								</li>
+								<li aria-haspopup="true">
+									<a href="admin.html">
+										<i class="fa fa-users"></i>管理
+									</a>
+								</li>
+								<li aria-haspopup="true">
+									<a href="rockman168.html">
+										<i class="fa fa-wrench"></i>設定
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<!--Menu HTML Code-->
+					</div>
+				</div>
+
+				<!--內文-->
+				<div class="content-area">
+					<div class="container" style="min-height:70vh;">
+						<div class="page-header" style="text-align: center;">
+							<h4 class="page-title">線上：1&emsp;/&emsp;總共：2</h4>
+						</div>
+
+						<div class="row row-cards">
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-12">
+								<div class="card">
+									<div class="card-body p-2">
+	                                    <div class=" d-flex bd-highlight pt-1">
+											<span>
+												<i class="avatar avatar-xl brround mr-2 fa fa-user-o bg-secondary"></i>
+											</span>
+											<div class="p-2 bd-highlight">
+									    		<label class="text-nowrap h4">建中3號機-黃瑞德</label><br>
+									    		<label class="text-nowrap h4 mb-0">2021-07-16 16:27:19</label>
+								    		</div>
+								    	</div>
+								    </div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-3 col-md-6 col-sm-12">
+								<div class="card">
+									<div class="card-body p-2">
+	                                    <div class=" d-flex bd-highlight pt-1">
+											<span>
+												<i class="avatar avatar-xl brround mr-2 fa fa-user-o bg-teal"></i>
+											</span>
+											<div class="p-2 bd-highlight">
+									    		<label class="text-nowrap h4">建中3號機-黃瑞德</label><br>
+									    		<label class="text-nowrap h4 mb-0">2021-07-16 16:27:19</label>
+								    		</div>
+								    	</div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--底部-->
+			<footer class="footer">
+				<div class="container">
+					<div class="row align-items-center flex-row-reverse">
+						<div class="col-lg-12 col-sm-12 mt-3 mt-lg-0 text-center">
+							富比特資訊社製 <i class="fa fa-registered"></i>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<script src="./assets/js/vendors/jquery-3.2.1.min.js"></script>
+		<script src="./assets/js/vendors/bootstrap.bundle.min.js"></script>
+		<script src="./assets/js/vendors/selectize.min.js"></script>
+		<script src="./assets/js/vendors/jquery.tablesorter.min.js"></script>
+		<script src="./assets/js/vendors/circle-progress.min.js"></script>
+		<script src="./assets/plugins/rating/jquery.rating-stars.js"></script>
+
+		<script src="assets/plugins/horizontal-menu/webslidemenu.js"></script>
+		<script src="assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script src="assets/js/custom.js"></script>
+	</body>
+</html>
