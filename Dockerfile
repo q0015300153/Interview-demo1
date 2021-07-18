@@ -23,8 +23,8 @@ RUN TZ=Asia/Taipei && \
     apt-get update -y && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends tzdata 
 
-# 安裝軟體 NginX、MariaDB
-RUN apt-get install -y git curl libnss3-tools wget python3-pip nginx mariadb-server && \
+# 安裝軟體 NginX、MariaDB supervisor
+RUN apt-get install -y git curl libnss3-tools wget nginx mariadb-server supervisor && \
 	# 安裝 nodejs
 	curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
 	apt install -y nodejs && \
@@ -35,9 +35,7 @@ RUN apt-get install -y git curl libnss3-tools wget python3-pip nginx mariadb-ser
 	apt install -y php8.0-fpm openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip && \
 	# 安裝 composer
 	wget -O composer-setup.php https://getcomposer.org/installer && \
-	php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
-	# 安裝 supervisor
-	pip3 install supervisor
+	php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # 設定資料庫 mariadb
 RUN /etc/init.d/mysql start && \
