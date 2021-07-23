@@ -1,8 +1,19 @@
 @ECHO OFF
-docker build -t test:latest .
-docker run -itd --name test -p 80:80 -p 443:443 -v ./html:/var/www/html -v ./database:/var/lib/mysql test:latest
-rem docker cp test:/etc/nginx/sites-available/default ./conf/default
-rem docker exec -it test ls -l /etc/nginx/sites-available
-docker exec -it test /bin/bash
-docker stop test
-docker container rm test
+FOR /F "tokens=1,2delims==" %%x IN (.env) DO (IF NOT "%%y"=="" (SET %%x=%%y))
+
+docker build -t %Project%:latest ^
+	--build-arg DBRootPass=%DBRootPass% ^
+	--build-arg DBRootPass=%DBRootPass% ^
+	--build-arg DBUserName=%DBUserName% ^
+	--build-arg DBUserPass=%DBUserPass% ^
+	--build-arg DBDataBase=%DBDataBase% ^
+	--build-arg LaravelName=%LaravelName% ^
+	 .
+
+docker run -itd --name %Project% ^
+	-p 80:80 -p 443:443 ^
+	-v %~dp0/html:/var/www/html ^
+	-v %~dp0/database:/var/lib/mysql ^
+	%Project%:latest
+
+rem docker cp %Project%:/etc/nginx/sites-available/default ./conf/default
