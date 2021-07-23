@@ -2,18 +2,11 @@ FROM ubuntu:latest
 MAINTAINER q0015300153@gmail.com
 
 # 參數設定
-# 資料庫 root 密碼
-ARG DBRootPass="admin"
-# 資料庫新使用者名稱
-ARG DBUserName="user"
-# 資料庫新使用者密碼
-ARG DBUserPass="test"
-# 新資料庫名稱
-ARG DataBase="home"
-# Laravel 專案名稱
-ARG LaravelName="demo-1"
-# Laravel 專案來源，空白則新增，否則 git clone
-ARG LaravelFrom=""
+ARG DBRootPass
+ARG DBUserName
+ARG DBUserPass
+ARG DBDataBase
+ARG LaravelName
 
 # 時區設定
 RUN TZ=Asia/Taipei && \
@@ -42,9 +35,9 @@ RUN /etc/init.d/mysql start && \
 	# 設定 mariadb root 密碼
 	mysqladmin -u root password ${DBRootPass} && \
 	## 設定 mariadb 新資料庫與使用者
-	mysql -uroot -p${DBRootPass} -e "CREATE DATABASE ${DataBase};" && \
+	mysql -uroot -p${DBRootPass} -e "CREATE DATABASE ${DBDataBase};" && \
 	mysql -uroot -p${DBRootPass} -e "CREATE USER '${DBUserName}'@'localhost' IDENTIFIED BY '${DBUserPass}';" && \
-	mysql -uroot -p${DBRootPass} -e "GRANT ALL PRIVILEGES ON ${DataBase}.* TO '${DBUserName}'@'localhost';"
+	mysql -uroot -p${DBRootPass} -e "GRANT ALL PRIVILEGES ON ${DBDataBase}.* TO '${DBUserName}'@'localhost';"
 
 # 安裝 go
 ADD https://golang.org/dl/go1.16.6.linux-amd64.tar.gz go.tar.gz
@@ -64,30 +57,49 @@ COPY ./conf/default /etc/nginx/sites-available/default
 RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/default
 RUN mkcert localhost 127.0.0.1
 
-## 建立 supervisor 設定檔
-#RUN echo -e '\
-#[program:nginx]\n\
-#command=nginx -g\n\
-#numprocs=1\n\
-#autostart=true\n\
-#autorestart=true\n\
-#user=root\
-#' > /etc/supervisor/conf.d/nginx.conf
-#
-#RUN echo -e '\
-#[program:mariadb]\n\
-#command=/etc/init.d/mysql start\n\
-#numprocs=1\n\
-#autostart=true\n\
-#autorestart=true\n\
-#user=root\
-#' > /etc/supervisor/conf.d/mariadb.conf
-#
-#RUN supervisorctl update
+# 建立 supervisor 設定檔
+RUN echo '\
+[unix_http_server]\n\
+file=/dev/shm/supervisor.sock\n\
+chmod=0700\n\
+\n\
+[supervisord]\n\
+nodaemon=true\n\
+logfile=/var/log/supervisor/supervisord.log\n\
+pidfile=/var/run/supervisord.pid\n\
+childlogdir=/var/log/supervisor\n\
+\n\
+[rpcinterface:supervisor]\n\
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface\n\
+\n\
+[supervisorctl]\n\
+serverurl=unix:///dev/shm/supervisor.sock\n\
+\n\
+[include]\n\
+files = /etc/supervisor/conf.d/*.conf\n\
+' > /etc/supervisor/supervisor.conf
+
+# 建立 supervisor 的 nginx 設定檔
+RUN echo '\
+[program:nginx]\n\
+command=nginx -c /etc/nginx/nginx.conf\n\
+numprocs=1\n\
+autostart=true\n\
+autorestart=true\n\
+user=root\
+' > /etc/supervisor/conf.d/nginx.conf
+
+# 建立 supervisor 的 mariadb 設定檔
+RUN echo -e '\
+[program:mariadb]\n\
+command=/etc/init.d/mysql start\n\
+numprocs=1\n\
+autostart=true\n\
+autorestart=true\n\
+user=root\
+' > /etc/supervisor/conf.d/mariadb.conf
 
 VOLUME ["/var/www/html", "/var/lib/mysql"]
 EXPOSE 80 443
 STOPSIGNAL SIGTERM
-#CMD ["sh", "-c", "nginx -g daemon off; && mysql start"]
-CMD ["nginx", "-g", "daemon off;"]
-#CMD ["supervisorctl", "start", "all"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
