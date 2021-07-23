@@ -90,7 +90,7 @@ user=root\
 ' > /etc/supervisor/conf.d/nginx.conf
 
 # 建立 supervisor 的 mariadb 設定檔
-RUN echo -e '\
+RUN echo '\
 [program:mariadb]\n\
 command=/etc/init.d/mysql start\n\
 numprocs=1\n\
