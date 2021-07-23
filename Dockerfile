@@ -17,7 +17,7 @@ RUN TZ=Asia/Taipei && \
     apt-get install -y --no-install-recommends tzdata 
 
 # 安裝軟體 NginX、MariaDB supervisor
-RUN apt-get install -y git curl libnss3-tools wget nginx mariadb-server supervisor && \
+RUN apt-get install -y git curl libnss3-tools wget zip unzip nginx mariadb-server supervisor && \
 	# 安裝 nodejs
 	curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
 	apt install -y nodejs && \
@@ -56,6 +56,9 @@ WORKDIR /var/www
 COPY ./conf/default /etc/nginx/sites-available/default
 RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/default
 RUN mkcert localhost 127.0.0.1
+
+# 複製 Laravel 專案
+COPY ./html ./html
 
 # 建立 supervisor 設定檔
 RUN echo '\
