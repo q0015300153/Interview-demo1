@@ -62,6 +62,15 @@ RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/defau
 
 # 複製 Laravel 專案
 COPY ./html ./html
+RUN [ -d "/var/www/html/${LaravelName}" ] && {\
+	cd /var/www/html/${LaravelName};\
+	composer install;\
+	chmod -R 757 %LaravelName%;\
+	chown -R www-data:www-data storage;\
+	chown -R www-data:www-data bootstrap/cache;\
+	chmod -R 775 storage;\
+	chmod -R 775 bootstrap/cache;\
+}
 
 # 建立 supervisor 設定檔
 RUN echo '\
