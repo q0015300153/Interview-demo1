@@ -8,6 +8,8 @@ docker build -t %Project%:latest ^
 	--build-arg DBUserPass=%DBUserPass% ^
 	--build-arg DBDataBase=%DBDataBase% ^
 	--build-arg LaravelName=%LaravelName% ^
+	--build-arg PHPVersion=%PHPVersion% ^
+	--build-arg GoVersion=%GoVersion% ^
 	 .
 
 docker run -itd --name %Project% ^
@@ -15,5 +17,3 @@ docker run -itd --name %Project% ^
 	-v %~dp0/html:/var/www/html ^
 	-v %~dp0/database:/var/lib/mysql ^
 	%Project%:latest
-
-rem docker cp %Project%:/etc/nginx/sites-available/default ./conf/default

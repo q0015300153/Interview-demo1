@@ -7,6 +7,8 @@ ARG DBUserName
 ARG DBUserPass
 ARG DBDataBase
 ARG LaravelName
+ARG PHPVersion
+ARG GoVersion
 
 # 時區設定
 RUN TZ=Asia/Taipei && \
@@ -17,7 +19,7 @@ RUN TZ=Asia/Taipei && \
     apt-get install -y --no-install-recommends tzdata 
 
 # 安裝軟體 NginX、MariaDB supervisor
-RUN apt-get install -y git curl libnss3-tools wget nginx mariadb-server supervisor && \
+RUN apt-get install -y git curl libnss3-tools wget zip unzip nginx mariadb-server supervisor && \
 	# 安裝 nodejs
 	curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
 	apt install -y nodejs && \
@@ -25,7 +27,7 @@ RUN apt-get install -y git curl libnss3-tools wget nginx mariadb-server supervis
 	apt install -y software-properties-common && \
 	add-apt-repository ppa:ondrej/php && \
 	apt update -y && \
-	apt install -y php8.0-fpm openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip && \
+	apt install -y php${PHPVersion}-fpm openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip && \
 	# 安裝 composer
 	wget -O composer-setup.php https://getcomposer.org/installer && \
 	php composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -40,7 +42,7 @@ RUN /etc/init.d/mysql start && \
 	mysql -uroot -p${DBRootPass} -e "GRANT ALL PRIVILEGES ON ${DBDataBase}.* TO '${DBUserName}'@'localhost';"
 
 # 安裝 go
-ADD https://golang.org/dl/go1.16.6.linux-amd64.tar.gz go.tar.gz
+ADD https://golang.org/dl/go${GoVersion}.linux-amd64.tar.gz go.tar.gz
 RUN tar zxvf go.tar.gz
 ENV PATH=/go/bin:$PATH
 
@@ -54,8 +56,12 @@ RUN mkcert -install
 # 設定 SSL 憑證與 PHP-fpm
 WORKDIR /var/www
 COPY ./conf/default /etc/nginx/sites-available/default
-RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/default
-RUN mkcert localhost 127.0.0.1
+RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/default && \
+	sed -i "s#\${PHPVersion}#${PHPVersion}#g" /etc/nginx/sites-available/default && \
+	mkcert localhost 127.0.0.1
+
+# 複製 Laravel 專案
+COPY ./html ./html
 
 # 建立 supervisor 設定檔
 RUN echo '\
@@ -88,6 +94,16 @@ autostart=true\n\
 autorestart=true\n\
 user=root\
 ' > /etc/supervisor/conf.d/nginx.conf
+
+# 建立 supervisor 的 php 設定檔
+RUN echo '\
+[program:php]\n\
+command=/etc/init.d/php'${PHPVersion}'-fpm start\n\
+numprocs=1\n\
+autostart=true\n\
+autorestart=true\n\
+user=root\
+' > /etc/supervisor/conf.d/php.conf
 
 # 建立 supervisor 的 mariadb 設定檔
 RUN echo '\
