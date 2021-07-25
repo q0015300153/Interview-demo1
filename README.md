@@ -2,8 +2,10 @@
 
 * .env 為設定檔
 * run.bat 為建立與啟動
-* stop.bat 為停止與移除
-* exec.bat 可於容器內執行 linux 命令
+* run.bat stop 簡寫 s 為停止與移除
+* run.bat exec 簡寫 e 可於容器內執行 linux 命令
+* run.bat add-laravel 簡寫 a 可新增或 git clone laravel 專案
+* run.bat laravel 簡寫 l 可執行 laravel 專案底下命令 Ex. php artsion 或 composer 或 webpack
 
 目前適用於 windows bat 腳本
 未來待開發 linux shell 腳本

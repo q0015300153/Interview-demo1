@@ -17,4 +17,11 @@ IF [%f%] neq [] (
 	run.bat l chown -R www-data:www-data bootstrap/cache
 	run.bat l chmod -R 775 storage
 	run.bat l chmod -R 775 bootstrap/cache
+	run.bat l npm install
+	run.bat l npm run production
+	run.bat l sed -i "s|APP_NAME=*|APP_NAME=${Project}|g" .env;\
+	run.bat l sed -i "s|DB_USERNAME=*|DB_USERNAME=${DBUserName}|g" .env;\
+	run.bat l sed -i "s|DB_PASSWORD=*|DB_PASSWORD=${DBUserPass}|g" .env;\
+	run.bat l sed -i "s|DB_DATABASE=*|DB_DATABASE=${DBDataBase}|g" .env;\
+	run.bat l sed -i "s|APP_DEBUG=true|APP_DEBUG=false|g" .env;\
 )
