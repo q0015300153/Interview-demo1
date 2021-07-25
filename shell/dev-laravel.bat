@@ -17,17 +17,17 @@ IF [%f%] neq [] (
 	call shell/laravel.bat chown -R www-data:www-data bootstrap/cache
 	call shell/laravel.bat chmod -R 775 storage
 	call shell/laravel.bat chmod -R 775 bootstrap/cache
+	
 	call shell/laravel.bat sed -i "s/APP_NAME=.*/APP_NAME=%Project%/g" .env
 	call shell/laravel.bat sed -i "s/DB_USERNAME=.*/DB_USERNAME=%DBUserName%/g" .env
 	call shell/laravel.bat sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=%DBUserPass%/g" .env
 	call shell/laravel.bat sed -i "s/DB_DATABASE=.*/DB_DATABASE=%DBDataBase%/g" .env
 	call shell/laravel.bat sed -i "s/APP_DEBUG=.*/APP_DEBUG=true/g" .env
+
 	call shell/laravel.bat npm install
-	
 	call shell/laravel.bat npm install vue bootstrap bootstrap-vue
 	call shell/laravel.bat npm install -D tailwindcss
 	call shell/laravel.bat npx tailwindcss init
-
 	call shell/laravel.bat npm run dev
 )
 
