@@ -8,6 +8,8 @@ docker build -t %Project%:latest ^
 	--build-arg DBUserPass=%DBUserPass% ^
 	--build-arg DBDataBase=%DBDataBase% ^
 	--build-arg LaravelName=%LaravelName% ^
+	--build-arg PHPVersion=%PHPVersion% ^
+	--build-arg GoVersion=%GoVersion% ^
 	 .
 
 docker run -itd --name %Project% ^
