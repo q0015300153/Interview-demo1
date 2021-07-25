@@ -1,19 +1,13 @@
 @ECHO OFF
 FOR /F "tokens=1,2delims==" %%x IN (.env) DO (IF NOT "%%y"=="" (SET %%x=%%y))
+FOR /f "tokens=1,*delims= " %%a in ("%*") DO (SET all=%%b)
 
-docker build -t %Project%:latest ^
-	--build-arg DBRootPass=%DBRootPass% ^
-	--build-arg DBRootPass=%DBRootPass% ^
-	--build-arg DBUserName=%DBUserName% ^
-	--build-arg DBUserPass=%DBUserPass% ^
-	--build-arg DBDataBase=%DBDataBase% ^
-	--build-arg LaravelName=%LaravelName% ^
-	--build-arg PHPVersion=%PHPVersion% ^
-	--build-arg GoVersion=%GoVersion% ^
-	 .
-
-docker run -itd --name %Project% ^
-	-p 80:80 -p 443:443 ^
-	-v %~dp0/html:/var/www/html ^
-	-v %~dp0/database:/var/lib/mysql ^
-	%Project%:latest
+IF [%~1] equ []            (call shell/run.bat)
+IF [%~1] equ [s]           (call shell/stop.bat)
+IF [%~1] equ [stop]        (call shell/stop.bat)
+IF [%~1] equ [e]           (call shell/exec.bat %all%)
+IF [%~1] equ [exec]        (call shell/exec.bat %all%)
+IF [%~1] equ [a]           (call shell/add-laravel.bat)
+IF [%~1] equ [add-laravel] (call shell/add-laravel.bat)
+IF [%~1] equ [l]           (call shell/laravel.bat %all%)
+IF [%~1] equ [laravel]     (call shell/laravel.bat %all%)
