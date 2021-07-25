@@ -4,7 +4,7 @@
 * run.bat 為建立與啟動
 * run.bat stop 簡寫 s 為停止與移除
 * run.bat exec 簡寫 e 可於容器內執行 linux 命令
-* run.bat add-laravel 簡寫 a 可新增或 git clone laravel 專案
+* run.bat dev-laravel 簡寫 d 可新增或 git clone laravel 專案，然後開啟 npm watch 以供開發
 * run.bat laravel 簡寫 l 可執行 laravel 專案底下命令 Ex. php artsion 或 composer 或 webpack
 
 目前適用於 windows bat 腳本

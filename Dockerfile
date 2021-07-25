@@ -71,12 +71,8 @@ RUN [ -d "/var/www/html/${LaravelName}" ] && {\
 	chmod -R 775 storage;\
 	chmod -R 775 bootstrap/cache;\
 	npm install;\
-	npm run production;\
-	sed -i "s|APP_NAME=*|APP_NAME=${Project}|g" .env;\
-	sed -i "s|DB_USERNAME=*|DB_USERNAME=${DBUserName}|g" .env;\
-	sed -i "s|DB_PASSWORD=*|DB_PASSWORD=${DBUserPass}|g" .env;\
-	sed -i "s|DB_DATABASE=*|DB_DATABASE=${DBDataBase}|g" .env;\
-	sed -i "s|APP_DEBUG=true|APP_DEBUG=false|g" .env;\
+	npm run prod;\
+	sed -i "s/APP_DEBUG=*/APP_DEBUG=false/g" .env;\
 }
 
 # 建立 supervisor 設定檔
