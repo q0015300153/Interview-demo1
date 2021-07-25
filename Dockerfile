@@ -62,6 +62,15 @@ RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/defau
 
 # 複製 Laravel 專案
 COPY ./html ./html
+RUN [ -d "/var/www/html/${LaravelName}" ] && {\
+	cd /var/www/html/${LaravelName};\
+	composer install;\
+	chmod -R 757 %LaravelName%;\
+	chown -R www-data:www-data storage;\
+	chown -R www-data:www-data bootstrap/cache;\
+	chmod -R 775 storage;\
+	chmod -R 775 bootstrap/cache;\
+}
 
 # 建立 supervisor 設定檔
 RUN echo '\
@@ -92,7 +101,10 @@ command=nginx -c /etc/nginx/nginx.conf\n\
 numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
-user=root\
+user=root\n\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/nginx.log\n\
 ' > /etc/supervisor/conf.d/nginx.conf
 
 # 建立 supervisor 的 php 設定檔
@@ -102,7 +114,10 @@ command=/etc/init.d/php'${PHPVersion}'-fpm start\n\
 numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
-user=root\
+user=root\n\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/php.log\n\
 ' > /etc/supervisor/conf.d/php.conf
 
 # 建立 supervisor 的 mariadb 設定檔
@@ -113,6 +128,9 @@ numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
 user=root\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/mariadb.log\n\
 ' > /etc/supervisor/conf.d/mariadb.conf
 
 VOLUME ["/var/www/html", "/var/lib/mysql"]
