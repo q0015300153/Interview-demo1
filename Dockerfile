@@ -92,7 +92,10 @@ command=nginx -c /etc/nginx/nginx.conf\n\
 numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
-user=root\
+user=root\n\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/nginx.log\n\
 ' > /etc/supervisor/conf.d/nginx.conf
 
 # 建立 supervisor 的 php 設定檔
@@ -102,7 +105,10 @@ command=/etc/init.d/php'${PHPVersion}'-fpm start\n\
 numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
-user=root\
+user=root\n\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/php.log\n\
 ' > /etc/supervisor/conf.d/php.conf
 
 # 建立 supervisor 的 mariadb 設定檔
@@ -113,6 +119,9 @@ numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
 user=root\
+#stdout_logfile_maxbytes=20MB\n\
+#stdout_logfile_backups=20\n\
+#stdout_logfile = /var/www/html/mariadb.log\n\
 ' > /etc/supervisor/conf.d/mariadb.conf
 
 VOLUME ["/var/www/html", "/var/lib/mysql"]

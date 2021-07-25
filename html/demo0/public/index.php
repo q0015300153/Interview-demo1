@@ -6,6 +6,6 @@
 </head>
 <body>
 	Hi
-	<?php echo "A"; ?>
+	<?php echo posix_getpwuid(posix_geteuid())['name']; ?>
 </body>
 </html>
