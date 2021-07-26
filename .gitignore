@@ -3,3 +3,4 @@ bright-*.json
 *.tar.gz
 /database/*
 *.log
+html/*
