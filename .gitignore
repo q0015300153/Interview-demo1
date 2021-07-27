@@ -4,3 +4,4 @@ bright-*.json
 /database/*
 *.log
 html/*
+!*.gitkeep
