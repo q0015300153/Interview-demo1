@@ -24,6 +24,7 @@ IF [%f%] neq [] (
 	call shell/laravel.bat sed -i "s/DB_DATABASE=.*/DB_DATABASE=%DBDataBase%/g" .env
 	call shell/laravel.bat sed -i "s/APP_DEBUG=.*/APP_DEBUG=true/g" .env
 
+	call shell/laravel.bat npm install -g npm
 	call shell/laravel.bat npm install
 	call shell/laravel.bat npm install vue bootstrap bootstrap-vue
 	call shell/laravel.bat npm install -D tailwindcss
