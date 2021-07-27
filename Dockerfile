@@ -32,14 +32,14 @@ RUN apt-get install -y git curl libnss3-tools wget zip unzip nginx mariadb-serve
 	wget -O composer-setup.php https://getcomposer.org/installer && \
 	php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
-# 設定資料庫 mariadb
-RUN /etc/init.d/mysql start && \
-	# 設定 mariadb root 密碼
-	mysqladmin -u root password ${DBRootPass} && \
-	## 設定 mariadb 新資料庫與使用者
-	mysql -uroot -p${DBRootPass} -e "CREATE DATABASE ${DBDataBase};" && \
-	mysql -uroot -p${DBRootPass} -e "CREATE USER '${DBUserName}'@'localhost' IDENTIFIED BY '${DBUserPass}';" && \
-	mysql -uroot -p${DBRootPass} -e "GRANT ALL PRIVILEGES ON ${DBDataBase}.* TO '${DBUserName}'@'localhost';"
+## 設定資料庫 mariadb
+#RUN /etc/init.d/mysql start
+#	# 設定 mariadb root 密碼
+#RUN mysqladmin -u root password ${DBRootPass}
+#RUN ## 設定 mariadb 新資料庫與使用者
+#RUN mysql -uroot -p${DBRootPass} -e "CREATE DATABASE ${DBDataBase};"
+#RUN mysql -uroot -p${DBRootPass} -e "CREATE USER '${DBUserName}'@'localhost' IDENTIFIED BY '${DBUserPass}';"
+#RUN mysql -uroot -p${DBRootPass} -e "GRANT ALL PRIVILEGES ON ${DBDataBase}.* TO '${DBUserName}'@'localhost';"
 
 # 安裝 go
 ADD https://golang.org/dl/go${GoVersion}.linux-amd64.tar.gz go.tar.gz
@@ -130,7 +130,7 @@ command=/etc/init.d/mysql start\n\
 numprocs=1\n\
 autostart=true\n\
 autorestart=true\n\
-user=root\
+user=root\n\
 #stdout_logfile_maxbytes=20MB\n\
 #stdout_logfile_backups=20\n\
 #stdout_logfile = /var/www/html/mariadb.log\n\
@@ -139,4 +139,9 @@ user=root\
 VOLUME ["/var/www/html", "/var/lib/mysql"]
 EXPOSE 80 443
 STOPSIGNAL SIGTERM
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
+COPY ./shell/init.sh /var/www/init.sh
+RUN sed -i "s#\${DBRootPass}#${DBRootPass}#g" /var/www/init.sh && \
+	sed -i "s#\${DBDataBase}#${DBDataBase}#g" /var/www/init.sh && \
+	sed -i "s#\${DBUserName}#${DBUserName}#g" /var/www/init.sh && \
+	sed -i "s#\${DBUserPass}#${DBUserPass}#g" /var/www/init.sh
+CMD ["/var/www/init.sh"]
