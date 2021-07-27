@@ -62,7 +62,7 @@ RUN sed -i "s#\${LaravelName}#${LaravelName}#g" /etc/nginx/sites-available/defau
 
 # 複製 Laravel 專案
 COPY ./html ./html
-RUN [ -d "/var/www/html/${LaravelName}" ] && {\
+RUN if [ -d "/var/www/html/${LaravelName}" ]; then\
 	cd /var/www/html/${LaravelName};\
 	composer install;\
 	chmod -R 757 %LaravelName%;\
@@ -73,7 +73,7 @@ RUN [ -d "/var/www/html/${LaravelName}" ] && {\
 	npm install;\
 	npm run prod;\
 	sed -i "s/APP_DEBUG=*/APP_DEBUG=false/g" .env;\
-}
+fi
 
 # 建立 supervisor 設定檔
 RUN echo '\
