@@ -36,8 +36,8 @@ IF [%f%] neq [] (
 		call shell/laravel.bat npm install
 		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3
 		call shell/laravel.bat npm install install vue-devtools --save-dev
-		call shell/laravel.bat npm install -D tailwindcss
-		call shell/laravel.bat npm tailwindcss init
+		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+		call shell/laravel.bat npx tailwindcss init
 		call shell/laravel.bat npm run dev
 	) ELSE (
 		REM git clone Laravel project
