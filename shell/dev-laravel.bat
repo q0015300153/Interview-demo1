@@ -5,7 +5,7 @@ FOR /F "delims=: tokens=2" %%a IN ('run.bat e ls "/var/www/html/%LaravelName%"')
 IF [%f%] neq [] (
 	IF "%LaravelFrom%" equ "" (
 		REM new Laravel project
-		call shell/laravel.bat composer create-project --prefer-dist laravel/laravel %LaravelName%
+		call shell/exec.bat composer create-project --prefer-dist laravel/laravel %LaravelName%
 	) ELSE (
 		REM git clone Laravel project
 		call shell/exec.bat %LaravelFrom%
