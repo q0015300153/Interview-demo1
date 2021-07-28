@@ -30,3 +30,26 @@ protected $middlewareGroups = [
 	// ...
 ];
 ```
+
+```js
+// 新增專案要手動修改 tailwind.config.js
+purge: [
+    './storage/framework/views/*.php',
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
+],
+
+// 新增專案要手動修改 webpack.mix.js
+mix.js('resources/js/app.js', 'public/js')
+    .postCss('resources/css/app.css', 'public/css', [
+        require('tailwindcss'),
+    ]);
+```
+
+```css
+// 新增專案要手動修改 resources/css/app.css 增加
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
