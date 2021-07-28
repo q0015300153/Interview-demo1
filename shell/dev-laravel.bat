@@ -35,7 +35,7 @@ IF [%f%] neq [] (
 		call shell/laravel.bat composer require tightenco/ziggy
 		call shell/laravel.bat npm install -g npm
 		call shell/laravel.bat npm install
-		call shell/laravel.bat npm install vue@next vue-loader @vue/compiler-sfc @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
+		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
 		call shell/laravel.bat npm install install vue-devtools --save-dev
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
