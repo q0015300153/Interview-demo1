@@ -34,7 +34,7 @@ IF [%f%] neq [] (
 		call shell/laravel.bat php artisan inertia:middleware
 		call shell/laravel.bat npm install -g npm
 		call shell/laravel.bat npm install
-		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue @inertiajs/inertia-vue3 @inertiajs/progress
+		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress
 		call shell/laravel.bat npm install install vue-devtools --save-dev
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
