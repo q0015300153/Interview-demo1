@@ -19,3 +19,14 @@
 
 * push2GCP.bat 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)
 * 然後透過 Cloud Run 執行網站
+
+```php
+// 新增專案要手動修改 App\Http\Kernel 增加
+protected $middlewareGroups = [
+	'web' => [
+	    // ...
+	    \App\Http\Middleware\HandleInertiaRequests::class,
+	],
+	// ...
+];
+```
