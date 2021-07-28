@@ -26,7 +26,7 @@ IF [%f%] neq [] (
 
 	call shell/laravel.bat npm install -g npm
 	call shell/laravel.bat npm install
-	call shell/laravel.bat npm install vue bootstrap bootstrap-vue
+	call shell/laravel.bat npm install vue
 	call shell/laravel.bat npm install -D tailwindcss
 	call shell/laravel.bat npx tailwindcss init
 	call shell/laravel.bat npm run dev
