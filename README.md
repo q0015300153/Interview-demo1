@@ -60,6 +60,16 @@ import {createApp} from "vue";
 const app = createApp({});
 
 app.mount("#app");
+
+// 手動修改 tailwind.config.js
+// ...
+  purge: [
+    './storage/framework/views/*.php',
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
+  ],
+// ...
 ```
 
 ```css
