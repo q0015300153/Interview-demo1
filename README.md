@@ -39,11 +39,15 @@ const webpack = require("webpack");
 
 // mix
 mix.version();
+mix.disableNotifications();
 
 // js
 mix.js('resources/js/app.js', 'public/js')
     .extract(['vue'])
-    .vue();
+    .vue({
+        extractStyles: true,
+        globalStyles: false
+    });
 
 // css
 mix.postCss('resources/css/app.css', 'public/css', [
@@ -68,7 +72,7 @@ require('./bootstrap');
 import {createApp} from "vue";
 
 const app = createApp({
-	
+
 });
 
 app.mount("#app");

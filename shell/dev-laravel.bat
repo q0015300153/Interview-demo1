@@ -30,7 +30,6 @@ IF [%f%] neq [] (
 	IF "%LaravelFrom%" equ "" (
 		REM new Laravel project
 		call shell/laravel.bat npm install -g npm
-		call shell/laravel.bat npm install --save-dev browser-sync
 		call shell/laravel.bat npm install
 		call shell/laravel.bat npm install vue@next
 		call shell/laravel.bat npm install vue-devtools --save-dev
