@@ -25,12 +25,15 @@ IF [%f%] neq [] (
 	call shell/laravel.bat sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=%DBUserPass%/g" .env
 	call shell/laravel.bat sed -i "s/DB_DATABASE=.*/DB_DATABASE=%DBDataBase%/g" .env
 	call shell/laravel.bat sed -i "s/APP_DEBUG=.*/APP_DEBUG=true/g" .env
+	call shell/laravel.bat sed -i "s/APP_URL=.*/APP_URL=https://localhost/g" .env
 
 	IF "%LaravelFrom%" equ "" (
 		REM new Laravel project
 		call shell/laravel.bat npm install -g npm
+		call shell/laravel.bat npm install --save-dev browser-sync
 		call shell/laravel.bat npm install
 		call shell/laravel.bat npm install vue@next
+		call shell/laravel.bat npm install vue-devtools --save-dev
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
 
@@ -42,7 +45,7 @@ IF [%f%] neq [] (
 		rem call shell/laravel.bat npm install -g npm
 		rem call shell/laravel.bat npm install
 		rem call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
-		rem call shell/laravel.bat npm install install vue-devtools --save-dev
+		rem call shell/laravel.bat npm install vue-devtools --save-dev
 		rem call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		rem call shell/laravel.bat npx tailwindcss init
 
