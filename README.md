@@ -1,59 +1,56 @@
 # 使用一個 Dockerfile 建立 LNMP 的 Laravel 開發測試環境
 
 ## 命令說明 ##
-* 設定檔
+設定檔
 * **.env**
 
-* 建立與啟動 Dockerfile
+建立與啟動 Dockerfile
 * **run.bat**
 
-* 停止與移除 image
-* **run.bat stop**
+停止與移除 image
+* **run.bat stop**  
 * **run.bat s**
 
-* 於容器內執行 linux 命令
-* **run.bat exec**
+於容器內執行 linux 命令
+* **run.bat exec**  
 * **run.bat e**
 
-* 執行 mysql 命令
+執行 mysql 命令
 * **run.bat mysql**
 
-* 新增或 git clone laravel 專案，然後開啟 npm watch 以供開發測試
-* **run.bat add-laravel**
-* **run.bat add**
-* **run.bat a**
-* **run.bat dev-laravel**
-* **run.bat dev**
+新增或 git clone laravel 專案，然後開啟 npm watch 以供開發測試
+* **run.bat add-laravel**  
+* **run.bat add**  
+* **run.bat a**  
+* **run.bat dev-laravel**  
+* **run.bat dev**  
 * **run.bat d**
 
-* 執行 laravel 專案底下命令 Ex. php artsion 或 composer 或 webpack
-* **run.bat laravel**
+執行 laravel 專案底下命令 Ex. php artsion 或 composer 或 webpack
+* **run.bat laravel**  
 * **run.bat l**
 
-* 執行 laravel 專案底下 php 命令
+執行 laravel 專案底下 php 命令
 * **run.bat php**
 
-* 執行 laravel 專案底下 artisan 命令
+執行 laravel 專案底下 artisan 命令
 * **run.bat artisan**
 
-* 執行 laravel 專案底下 composer 命令
+執行 laravel 專案底下 composer 命令
 * **run.bat composer**
 
-* 執行 laravel 專案底下 npm 命令
+執行 laravel 專案底下 npm 命令
 * **run.bat npm**
 
-> 目前適用於 windows bat 腳本
->
+> 目前適用於 windows bat 腳本  
 > 未來待開發 linux shell 腳本
 
-> **push2GCP.bat** 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)
->
+> **push2GCP.bat** 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)  
 > 然後透過 Cloud Run 執行網站
 
 ## 執行新增 laravel 專案後，可以做以下動作 ##
 > 目前新專案會額外安裝 
->> Vue
->>
+>> Vue  
 >> Inertia
 >
 > #### 待安裝清單 ####
