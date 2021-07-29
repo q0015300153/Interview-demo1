@@ -3,21 +3,21 @@
 ## 命令說明 ##
 * 設定檔
 * **.env**
-*
+
 * 建立與啟動 Dockerfile
 * **run.bat**
-*
+
 * 停止與移除 image
 * **run.bat stop**
 * **run.bat s**
-*
+
 * 於容器內執行 linux 命令
 * **run.bat exec**
 * **run.bat e**
-*
+
 * 執行 mysql 命令
 * **run.bat mysql**
-*
+
 * 新增或 git clone laravel 專案，然後開啟 npm watch 以供開發測試
 * **run.bat add-laravel**
 * **run.bat add**
@@ -25,20 +25,20 @@
 * **run.bat dev-laravel**
 * **run.bat dev**
 * **run.bat d**
-*
+
 * 執行 laravel 專案底下命令 Ex. php artsion 或 composer 或 webpack
 * **run.bat laravel**
 * **run.bat l**
-*
+
 * 執行 laravel 專案底下 php 命令
 * **run.bat php**
-*
+
 * 執行 laravel 專案底下 artisan 命令
 * **run.bat artisan**
-*
+
 * 執行 laravel 專案底下 composer 命令
 * **run.bat composer**
-*
+
 * 執行 laravel 專案底下 npm 命令
 * **run.bat npm**
 
