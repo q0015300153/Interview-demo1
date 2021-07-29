@@ -37,13 +37,20 @@ protected $middlewareGroups = [
 const mix     = require('laravel-mix');
 const webpack = require("webpack");
 
+// mix
+mix.version();
+
+// js
 mix.js('resources/js/app.js', 'public/js')
     .extract(['vue'])
-    .postCss('resources/css/app.css', 'public/css', [
-        require('tailwindcss'),
-    ])
-    .version();
+    .vue();
 
+// css
+mix.postCss('resources/css/app.css', 'public/css', [
+        require('tailwindcss'),
+    ]);
+    
+// webpack
 mix.webpackConfig({
     plugins: [
         new webpack.DefinePlugin({
@@ -52,16 +59,22 @@ mix.webpackConfig({
         }),
     ],
 });
+```
 
+```js
 // 手動修改 resources/js/app.js
-require("./bootstrap");
+require('./bootstrap');
 
 import {createApp} from "vue";
 
-const app = createApp({});
+const app = createApp({
+	
+});
 
 app.mount("#app");
+```
 
+```js
 // 手動修改 tailwind.config.js
 // ...
   purge: [
