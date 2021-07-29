@@ -23,10 +23,11 @@
 ## 執行新增 laravel 專案後，可以做以下動作 ##
 > 目前新專案會額外安裝 
 >> Vue
+>>
 >> Inertia
 >
 > #### 待安裝清單 ####
-> >Jetstream
+>> Jetstream
 
 ```php
 // 手動修改 App\Http\Kernel 增加
