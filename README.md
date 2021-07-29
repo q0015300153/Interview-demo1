@@ -125,6 +125,7 @@ InertiaProgress.init();
 <html>
 <head>
 	<meta charset="utf-8">
+	<title></title>
 	...
 	<link href="{{mix('/css/app.css')}}" rel="stylesheet">
 	...
