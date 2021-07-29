@@ -20,8 +20,9 @@
 * push2GCP.bat 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)
 * 然後透過 Cloud Run 執行網站
 
+## 執行新增 laravel 專案後，可以做以下動作 ##
 ```php
-// 新增專案要手動修改 App\Http\Kernel 增加
+// 手動修改 App\Http\Kernel 增加
 protected $middlewareGroups = [
 	'web' => [
 	    // ...
@@ -29,4 +30,41 @@ protected $middlewareGroups = [
 	],
 	// ...
 ];
+```
+
+```js
+// 手動修改 webpack.mix.js
+const mix     = require('laravel-mix');
+const webpack = require("webpack");
+
+mix.js('resources/js/app.js', 'public/js')
+    .vue()
+    .postCss('resources/css/app.css', 'public/css', [
+        require('tailwindcss'),
+    ]);
+
+mix.webpackConfig({
+    plugins: [
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: true,
+        }),
+    ],
+});
+
+// 手動修改 resources/js/app.js
+require("./bootstrap");
+
+import {createApp} from "vue";
+
+const app = createApp({});
+
+app.mount("#app");
+```
+
+```css
+/* 手動修改 resources/css/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
