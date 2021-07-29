@@ -28,17 +28,24 @@ IF [%f%] neq [] (
 
 	IF "%LaravelFrom%" equ "" (
 		REM new Laravel project
-		call shell/laravel.bat composer require laravel/jetstream
-		call shell/laravel.bat php artisan jetstream:install
-		call shell/laravel.bat composer require inertiajs/inertia-laravel
-		call shell/laravel.bat php artisan inertia:middleware
-		call shell/laravel.bat composer require tightenco/ziggy
 		call shell/laravel.bat npm install -g npm
 		call shell/laravel.bat npm install
-		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
-		call shell/laravel.bat npm install install vue-devtools --save-dev
+		call shell/laravel.bat npm install vue@next
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
+
+		rem call shell/laravel.bat composer require laravel/jetstream
+		rem call shell/laravel.bat php artisan jetstream:install
+		rem call shell/laravel.bat composer require inertiajs/inertia-laravel
+		rem call shell/laravel.bat php artisan inertia:middleware
+		rem call shell/laravel.bat composer require tightenco/ziggy
+		rem call shell/laravel.bat npm install -g npm
+		rem call shell/laravel.bat npm install
+		rem call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
+		rem call shell/laravel.bat npm install install vue-devtools --save-dev
+		rem call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+		rem call shell/laravel.bat npx tailwindcss init
+
 		call shell/laravel.bat npm run dev
 	) ELSE (
 		REM git clone Laravel project
