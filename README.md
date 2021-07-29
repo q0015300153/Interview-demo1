@@ -14,8 +14,9 @@
 * run.bat [composer]  可執行 laravel 專案底下 composer 命令
 * run.bat [npm]       可執行 laravel 專案底下 npm      命令
 
->目前適用於 windows bat 腳本
->未來待開發 linux shell 腳本
+> 目前適用於 windows bat 腳本
+>
+> 未來待開發 linux shell 腳本
 
 * push2GCP.bat 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)
 * 然後透過 Cloud Run 執行網站
