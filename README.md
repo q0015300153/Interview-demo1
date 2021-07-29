@@ -1,5 +1,6 @@
 # 使用一個 Dockerfile 建立 LNMP 的 Laravel 開發測試環境
 
+## 命令說明 ##
 * .env 為設定檔
 * run.bat 為建立與啟動 Dockerfile
 * run.bat [stop|s] 為停止與移除 image
@@ -13,14 +14,17 @@
 * run.bat [composer]  可執行 laravel 專案底下 composer 命令
 * run.bat [npm]       可執行 laravel 專案底下 npm      命令
 
-目前適用於 windows bat 腳本
-
-未來待開發 linux shell 腳本
+>目前適用於 windows bat 腳本
+>未來待開發 linux shell 腳本
 
 * push2GCP.bat 可將編譯好的 docker 容器 push 到 GCP - container registry (使用 json.key)
 * 然後透過 Cloud Run 執行網站
 
 ## 執行新增 laravel 專案後，可以做以下動作 ##
+> 目前新專案會額外安裝 Vue + Inertia ###
+> #### 待安裝清單 ####
+> >Jetstream
+
 ```php
 // 手動修改 App\Http\Kernel 增加
 protected $middlewareGroups = [
@@ -43,7 +47,11 @@ mix.disableNotifications();
 
 // js
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['vue'])
+    .extract([
+    	'vue',
+    	'@inertiajs/inertia-vue3',
+		'@inertiajs/progress',
+    ])
     .vue({
         extractStyles: true,
         globalStyles: false
@@ -63,19 +71,31 @@ mix.webpackConfig({
         }),
     ],
 });
+
+// babel
+mix.babelConfig({
+    plugins: ['@babel/plugin-syntax-dynamic-import'],
+});
 ```
 
 ```js
 // 手動修改 resources/js/app.js
 require('./bootstrap');
 
-import {createApp} from "vue";
+import {createApp, h} from 'vue';
+import {createInertiaApp} from '@inertiajs/inertia-vue3';
+import {InertiaProgress} from '@inertiajs/progress';
 
-const app = createApp({
-
+createInertiaApp({
+  	resolve: name => import(`./Pages/${name}`),
+  	setup({el, App, props, plugin}) {
+    	createApp({render:() => h(App, props)})
+      		.use(plugin)
+      		.mount(el)
+  	},
 });
 
-app.mount("#app");
+InertiaProgress.init();
 ```
 
 ```js
@@ -95,4 +115,24 @@ app.mount("#app");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+```
+
+```html
+<!-- 新增 resources/view/app.blade.php 增加 -->
+<html>
+<head>
+	<meta charset="utf-8">
+	...
+	<link href="{{mix('/css/app.css')}}" rel="stylesheet">
+	...
+</head>
+<body>
+	...
+	@inertia
+	...
+	<script src="{{mix('/js/manifest.js')}}"></script>
+	<script src="{{mix('/js/vendor.js')}}"></script>
+	<script src="{{mix('/js/app.js')}}"></script>
+</body>
+</html>
 ```

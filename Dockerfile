@@ -128,7 +128,7 @@ user=root\n\
 ' > /etc/supervisor/conf.d/mariadb.conf
 
 VOLUME ["/var/www/html", "/var/lib/mysql"]
-EXPOSE 80 443 3000 3001
+EXPOSE 80 443
 STOPSIGNAL SIGTERM
 COPY ./shell/init.sh /var/www/init.sh
 RUN sed -i "s#\${DBRootPass}#${DBRootPass}#g" /var/www/init.sh && \
