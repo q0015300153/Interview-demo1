@@ -43,7 +43,11 @@ mix.disableNotifications();
 
 // js
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['vue'])
+    .extract([
+    	'vue',
+    	'@inertiajs/inertia-vue3',
+		'@inertiajs/progress',
+    ])
     .vue({
         extractStyles: true,
         globalStyles: false
@@ -70,12 +74,19 @@ mix.webpackConfig({
 require('./bootstrap');
 
 import {createApp} from "vue";
+import {createApp, h} from 'vue';
+import {createInertiaApp} from '@inertiajs/inertia-vue3';
+import {InertiaProgress} from '@inertiajs/progress';
 
-const app = createApp({
-
+createInertiaApp({
+  	resolve: name => require(`./Pages/${name}`),
+  	setup({el, App, props, plugin}) {
+    	createApp({render:() => h(App, props)})
+      		.use(plugin)
+      		.mount(el)
+  	},
 });
-
-app.mount("#app");
+InertiaProgress.init();
 ```
 
 ```js
