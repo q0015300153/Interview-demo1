@@ -51,10 +51,10 @@
 ## 執行新增 laravel 專案後，可以做以下動作 ##
 > 目前新專案會額外安裝 
 > 1. Vue  
-> 1. Inertia
->
+> 1. Inertia  
 > #### 待安裝清單 ####
-> 1. Jetstream  
+> 1. babel/plugin-syntax-dynamic-import  
+> 2. Jetstream  
 
 ```php
 // 手動修改 App\Http\Kernel 增加
@@ -78,15 +78,15 @@ mix.disableNotifications();
 
 // js
 mix.js('resources/js/app.js', 'public/js')
-    .extract([
-    	'vue',
-    	'@inertiajs/inertia-vue3',
-		'@inertiajs/progress',
-    ])
     .vue({
         extractStyles: true,
         globalStyles: false
-    });
+    })
+    .extract([
+        '@vue',
+        '@inertiajs/inertia-vue3',
+        '@inertiajs/progress',
+    ]);
 
 // css
 mix.postCss('resources/css/app.css', 'public/css', [
@@ -101,11 +101,6 @@ mix.webpackConfig({
             __VUE_PROD_DEVTOOLS__: true,
         }),
     ],
-});
-
-// babel
-mix.babelConfig({
-    plugins: ['@babel/plugin-syntax-dynamic-import'],
 });
 ```
 
