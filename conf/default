@@ -6,8 +6,8 @@ server {
 }
 
 server {
-	listen 443 ssl default_server;
-	listen [::]:443 ssl default_server;
+	listen 443 ssl default_server http2;
+	listen [::]:443 ssl default_server http2;
 
 	ssl_certificate /var/www/localhost+1.pem;
 	ssl_certificate_key /var/www/localhost+1-key.pem;
