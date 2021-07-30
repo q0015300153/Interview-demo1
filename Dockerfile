@@ -48,7 +48,7 @@ RUN mkcert -install
 # 安裝 Ngrok 用於測試外網 Https
 ADD https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip ngrok.zip
 RUN unzip ngrok.zip && cp ngrok /usr/local/bin/ngrok && \
-	ngrok authtoken 1w1eQW7UeXGVKfPrpvj30akv5Du_6H6HxkwYYkvLiiELMNtGs
+	ngrok authtoken ${NgrokToken}
 
 # 設定 SSL 憑證與 PHP-fpm
 WORKDIR /var/www
