@@ -113,6 +113,13 @@ import {createApp, h} from 'vue';
 import {createInertiaApp} from '@inertiajs/inertia-vue3';
 import {InertiaProgress} from '@inertiajs/progress';
 
+InertiaProgress.init({
+  delay: 250,
+  color: '#29d',
+  includeCSS: true,
+  showSpinner: false,
+});
+
 createInertiaApp({
   	resolve: name => import(`./Pages/${name}`),
   	setup({el, App, props, plugin}) {
@@ -121,8 +128,6 @@ createInertiaApp({
       		.mount(el)
   	},
 });
-
-InertiaProgress.init();
 ```
 
 ```js
