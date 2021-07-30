@@ -30,17 +30,20 @@ IF [%f%] neq [] (
 	IF "%LaravelFrom%" equ "" (
 		REM new Laravel project
 		rem call shell/laravel.bat mkdir ./resources/js/Jetstream
-		call shell/laravel.bat mkdir ./resources/js/Pages
-		call shell/laravel.bat mkdir ./resources/js/components
 		rem call shell/laravel.bat composer require laravel/jetstream
 		rem call shell/laravel.bat php artisan jetstream:install inertia --teams
+		call shell/laravel.bat mkdir ./resources/js/Pages
+		call shell/laravel.bat mkdir ./resources/js/components
 		call shell/laravel.bat composer require inertiajs/inertia-laravel
 		call shell/laravel.bat php artisan inertia:middleware
 		call shell/laravel.bat php artisan migrate
 		call shell/laravel.bat npm install -g npm
 		call shell/laravel.bat npm install
-		call shell/laravel.bat npm install vue@next @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress @babel/plugin-syntax-dynamic-import
+		call shell/laravel.bat npm install vue@next
 		call shell/laravel.bat npm install vue-devtools --save-dev
+		call shell/laravel.bat npm install @inertiajs/inertia @inertiajs/inertia-vue3
+		call shell/laravel.bat npm install @inertiajs/progress
+		rem call shell/laravel.bat npm install @babel/plugin-syntax-dynamic-import
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
 		call shell/laravel.bat npm run dev
