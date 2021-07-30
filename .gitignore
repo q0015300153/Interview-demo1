@@ -1,4 +1,4 @@
-
+.env
 bright-*.json
 *.tar.gz
 /database/*
