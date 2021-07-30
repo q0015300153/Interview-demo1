@@ -75,6 +75,7 @@ const webpack = require("webpack");
 // mix
 mix.version();
 mix.disableNotifications();
+mix.sourceMaps();
 
 // js
 mix.js('resources/js/app.js', 'public/js')
