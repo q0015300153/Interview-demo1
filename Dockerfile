@@ -9,6 +9,7 @@ ARG DBDataBase
 ARG LaravelName
 ARG PHPVersion
 ARG GoVersion
+ARG NgrokToken
 
 # 時區設定
 RUN TZ=Asia/Taipei && \
@@ -43,6 +44,11 @@ RUN git clone https://github.com/FiloSottile/mkcert && \
 	go build -ldflags "-X main.Version=$(git describe --tags)"
 ENV PATH=/mkcert:$PATH
 RUN mkcert -install
+
+# 安裝 Ngrok 用於測試外網 Https
+ADD https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip ngrok.zip
+RUN unzip ngrok.zip && cp ngrok /usr/local/bin/ngrok && \
+	ngrok authtoken 1w1eQW7UeXGVKfPrpvj30akv5Du_6H6HxkwYYkvLiiELMNtGs
 
 # 設定 SSL 憑證與 PHP-fpm
 WORKDIR /var/www

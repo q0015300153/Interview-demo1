@@ -54,3 +54,4 @@ IF [%f%] neq [] (
 )
 
 start call shell/laravel.bat npm run watch-poll
+start call shell/ngrok.bat
