@@ -9,9 +9,6 @@ IF [%f%] neq [] (
 	) ELSE (
 		REM git clone Laravel project
 		call shell/exec.bat %LaravelFrom%
-		call shell/laravel.bat composer install
-		call shell/laravel.bat cp .env.example .env
-		call shell/laravel.bat php artisan key:generate
 	)
 
 	call shell/exec.bat chmod -R 757 %LaravelName%
@@ -49,7 +46,12 @@ IF [%f%] neq [] (
 		call shell/laravel.bat npm run dev
 	) ELSE (
 		REM git clone Laravel project
+		call shell/laravel.bat composer install
+		call shell/laravel.bat cp .env.example .env
+		call shell/laravel.bat php artisan key:generate
 		call shell/laravel.bat php artisan migrate
+		call shell/laravel.bat npm install
+		call shell/laravel.bat npm run dev
 	)
 )
 
