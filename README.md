@@ -18,6 +18,12 @@
 執行 mysql 命令
 * **run.bat mysql**
 
+執行 php 命令
+* **run.bat php**
+
+執行 ngrok 服務
+* **run.bat ngrok**
+
 新增或 git clone laravel 專案，然後開啟 npm watch 以供開發測試
 * **run.bat add-laravel**  
 * **run.bat add**  
@@ -30,11 +36,9 @@
 * **run.bat laravel**  
 * **run.bat l**
 
-執行 laravel 專案底下 php 命令
-* **run.bat php**
-
 執行 laravel 專案底下 artisan 命令
 * **run.bat artisan**
+* **run.bat art**
 
 執行 laravel 專案底下 composer 命令
 * **run.bat composer**

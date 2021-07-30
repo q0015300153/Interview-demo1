@@ -10,6 +10,7 @@ docker build -t %Project%:latest ^
 	--build-arg LaravelName=%LaravelName% ^
 	--build-arg PHPVersion=%PHPVersion% ^
 	--build-arg GoVersion=%GoVersion% ^
+	--build-arg NgrokToken=%NgrokToken% ^
 	 .
 
 docker run -itd --name %Project% ^
