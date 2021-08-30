@@ -43,6 +43,7 @@ IF [%f%] neq [] (
 		rem call shell/laravel.bat npm install @babel/plugin-syntax-dynamic-import
 		call shell/laravel.bat npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 		call shell/laravel.bat npx tailwindcss init
+		call shell/laravel.bat npm install vue-loader
 		call shell/laravel.bat npm run dev
 	) ELSE (
 		REM git clone Laravel project
