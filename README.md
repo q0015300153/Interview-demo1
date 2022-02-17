@@ -59,6 +59,7 @@
 > #### 待安裝清單 ####
 > 1. babel/plugin-syntax-dynamic-import  
 > 2. Jetstream  
+> 3. Tailwind CSS
 
 ```php
 // 手動修改 App\Http\Kernel 增加
